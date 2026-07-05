@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RaysChatBot — Command List</title>
+  <meta name="description" content="Chat commands for the shiny-hunt stream bot." />
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg-elev: #171a23;
+      --bg-card: #1c2029;
+      --border: #2a2f3a;
+      --text: #e7e9ee;
+      --text-dim: #9aa2b1;
+      --accent: #ffcb3d;
+      --accent-soft: rgba(255, 203, 61, 0.12);
+      --mod: #7bd88f;
+      --mod-soft: rgba(123, 216, 143, 0.12);
+      --code-bg: #0b0d12;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7f9;
+        --bg-elev: #ffffff;
+        --bg-card: #ffffff;
+        --border: #e3e6ec;
+        --text: #1b1f27;
+        --text-dim: #5c6472;
+        --accent: #c8930a;
+        --accent-soft: rgba(200, 147, 10, 0.10);
+        --mod: #1f8a4c;
+        --mod-soft: rgba(31, 138, 76, 0.10);
+        --code-bg: #f0f2f5;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+
+    header { text-align: center; margin-bottom: 2rem; }
+    header .spark { font-size: 2.4rem; line-height: 1; }
+    h1 { margin: 0.4rem 0 0.25rem; font-size: 1.9rem; letter-spacing: -0.01em; }
+    header p { margin: 0; color: var(--text-dim); font-size: 1rem; }
+
+    .search {
+      position: sticky; top: 0; z-index: 5;
+      padding: 0.75rem 0 1rem;
+      background: linear-gradient(var(--bg) 70%, transparent);
+    }
+    .search input {
+      width: 100%; padding: 0.7rem 0.95rem;
+      font-size: 1rem; color: var(--text);
+      background: var(--bg-elev);
+      border: 1px solid var(--border); border-radius: 10px;
+      outline: none;
+    }
+    .search input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+    .search input::placeholder { color: var(--text-dim); }
+
+    .legend {
+      display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem;
+      font-size: 0.85rem; color: var(--text-dim);
+      margin: 0 0 1.75rem; padding: 0.85rem 1rem;
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px;
+    }
+    .legend code { background: var(--code-bg); }
+
+    section { margin-bottom: 2.25rem; }
+    .section-head {
+      display: flex; align-items: baseline; gap: 0.6rem;
+      margin: 0 0 0.9rem;
+    }
+    .section-head h2 { margin: 0; font-size: 1.15rem; }
+    .badge {
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.03em;
+      text-transform: uppercase; padding: 0.15rem 0.5rem; border-radius: 999px;
+      color: var(--mod); background: var(--mod-soft); border: 1px solid var(--mod-soft);
+    }
+    .section-sub { margin: -0.4rem 0 0.9rem; color: var(--text-dim); font-size: 0.88rem; }
+
+    .cmd {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 0.7rem;
+      box-shadow: var(--shadow);
+    }
+    .cmd-top { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 0.75rem; }
+    .cmd-name {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 1rem; font-weight: 600; color: var(--accent);
+    }
+    .cmd-args { color: var(--text-dim); font-weight: 400; }
+    .cmd-desc { margin: 0.5rem 0 0; color: var(--text); font-size: 0.95rem; }
+    .cmd-ex { margin: 0.6rem 0 0; font-size: 0.85rem; color: var(--text-dim); }
+    .cmd-ex code {
+      color: var(--text); background: var(--code-bg);
+    }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85em; padding: 0.12em 0.4em; border-radius: 5px;
+      background: var(--code-bg); border: 1px solid var(--border);
+    }
+    .no-results {
+      display: none; text-align: center; color: var(--text-dim);
+      padding: 2.5rem 1rem; font-size: 0.95rem;
+    }
+    footer {
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+      text-align: center; color: var(--text-dim); font-size: 0.82rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="spark">✨</div>
+      <h1>RaysChatBot Commands</h1>
+      <p>Type these in chat. Everything comes straight from the live shiny-hunt.</p>
+    </header>
+
+    <div class="search">
+      <input id="filter" type="text" placeholder="Filter commands… (e.g. odds, guess, mod)"
+             autocomplete="off" spellcheck="false" aria-label="Filter commands" />
+    </div>
+
+    <div class="legend">
+      <span><code>[switch]</code> = optional, a number <code>1</code>–<code>3</code>. Leave it off to see all switches at once.</span>
+      <span><code>&lt;arg&gt;</code> = required.</span>
+      <span>Viewer commands have a 10s cooldown. Mods bypass it.</span>
+    </div>
+
+    <section data-group="viewer stats live">
+      <div class="section-head"><h2>Live stats</h2></div>
+      <p class="section-sub">Ask the bot anything about the current hunt.</p>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!count <span class="cmd-args">[switch]</span></span></div>
+        <p class="cmd-desc">Current encounter counts. Omit the switch for a one-line total of all three; add one for the per-Pokémon breakdown.</p>
+        <p class="cmd-ex">e.g. <code>!count</code> · <code>!count 2</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!odds <span class="cmd-args">[switch]</span></span></div>
+        <p class="cmd-desc">The current shiny odds, including the hunt method and whether the Shiny Charm is active.</p>
+        <p class="cmd-ex">e.g. <code>!odds</code> · <code>!odds 1</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!target <span class="cmd-args">[switch]</span></span></div>
+        <p class="cmd-desc">Which Pokémon is currently being hunted on each switch.</p>
+        <p class="cmd-ex">e.g. <code>!target</code> · <code>!target 3</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!luck <span class="cmd-args">[switch]</span></span></div>
+        <p class="cmd-desc">How lucky (or cursed) the current hunt is running compared to the expected odds.</p>
+        <p class="cmd-ex">e.g. <code>!luck</code> · <code>!luck 2</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!eta <span class="cmd-args">[switch]</span></span></div>
+        <p class="cmd-desc">Estimated time until a shiny at the current encounter rate, plus the encounters-per-hour pace.</p>
+        <p class="cmd-ex">e.g. <code>!eta</code> · <code>!eta 1</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!uptime <span class="cmd-args">[switch]</span></span></div>
+        <p class="cmd-desc">How long the current hunt has been running and how many encounters it has gained this session.</p>
+        <p class="cmd-ex">e.g. <code>!uptime</code> · <code>!uptime 3</code></p>
+      </article>
+    </section>
+
+    <section data-group="viewer history records">
+      <div class="section-head"><h2>History &amp; records</h2></div>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!lastshiny</span></div>
+        <p class="cmd-desc">The most recent shiny caught — name, date, the encounter count it took, and the method.</p>
+        <p class="cmd-ex">e.g. <code>!lastshiny</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!record</span></div>
+        <p class="cmd-desc">Lifetime records: total shinies, lifetime encounters, the longest hunt, and the fastest shiny.</p>
+        <p class="cmd-ex">e.g. <code>!record</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!catchinfo <span class="cmd-args">&lt;pokemon&gt;</span></span></div>
+        <p class="cmd-desc">When a specific Pokémon was caught and how many encounters it took.</p>
+        <p class="cmd-ex">e.g. <code>!catchinfo ralts</code></p>
+      </article>
+    </section>
+
+    <section data-group="viewer game fun interactive">
+      <div class="section-head"><h2>Play along</h2></div>
+      <p class="section-sub">Get in on the hunt yourself.</p>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!guess <span class="cmd-args">&lt;pokemon&gt; &lt;encounters&gt;</span></span></div>
+        <p class="cmd-desc">Predict how many encounters an active hunt will take. The closest guess is crowned when the shiny is found. One guess per hunt — it locks in, so choose carefully.</p>
+        <p class="cmd-ex">e.g. <code>!guess rayquaza 1000</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!claim</span></div>
+        <p class="cmd-desc">Were you here when a shiny hit? Claim it within 10 minutes to get credited on the leaderboard.</p>
+        <p class="cmd-ex">e.g. <code>!claim</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!claims</span></div>
+        <p class="cmd-desc">The shiny-claim leaderboard — who has been present for the most shinies.</p>
+        <p class="cmd-ex">e.g. <code>!claims</code></p>
+      </article>
+    </section>
+
+    <section data-group="mod moderator staff">
+      <div class="section-head"><h2>Moderator</h2><span class="badge">Mods only</span></div>
+      <p class="section-sub">These do nothing for regular viewers.</p>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!settarget <span class="cmd-args">&lt;switch&gt; &lt;name&gt;</span></span></div>
+        <p class="cmd-desc">Override the target name shown on the stream overlay for a switch.</p>
+        <p class="cmd-ex">e.g. <code>!settarget 2 Shiny Gible</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!pausecount</span> &nbsp;/&nbsp; <span class="cmd-name">!resumecount</span></div>
+        <p class="cmd-desc">Hide or show the on-stream encounter counter widget.</p>
+        <p class="cmd-ex">e.g. <code>!pausecount</code> · <code>!resumecount</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!correctcount <span class="cmd-args">&lt;switch&gt; &lt;pokemon&gt; &lt;count&gt;</span></span></div>
+        <p class="cmd-desc">Manually fix an encounter count if the tracker miscounted.</p>
+        <p class="cmd-ex">e.g. <code>!correctcount 1 ralts 4200</code></p>
+      </article>
+
+      <article class="cmd">
+        <div class="cmd-top"><span class="cmd-name">!summary</span></div>
+        <p class="cmd-desc">Post an end-of-stream session summary across all switches.</p>
+        <p class="cmd-ex">e.g. <code>!summary</code></p>
+      </article>
+    </section>
+
+    <p class="no-results" id="noResults">No commands match that filter.</p>
+
+    <footer>
+      <p>✨ Happy hunting. &nbsp;·&nbsp; Commands may change as new features roll out.</p>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var input = document.getElementById('filter');
+      var cmds = Array.prototype.slice.call(document.querySelectorAll('.cmd'));
+      var sections = Array.prototype.slice.call(document.querySelectorAll('section'));
+      var noResults = document.getElementById('noResults');
+
+      function apply() {
+        var q = input.value.trim().toLowerCase();
+        var anyVisible = false;
+
+        cmds.forEach(function (c) {
+          var hay = (c.textContent + ' ' + (c.closest('section').getAttribute('data-group') || '')).toLowerCase();
+          var show = !q || hay.indexOf(q) !== -1;
+          c.style.display = show ? '' : 'none';
+          if (show) anyVisible = true;
+        });
+
+        sections.forEach(function (s) {
+          var visible = s.querySelectorAll('.cmd:not([style*="display: none"])').length > 0;
+          s.style.display = visible ? '' : 'none';
+        });
+
+        noResults.style.display = anyVisible ? 'none' : 'block';
+      }
+
+      input.addEventListener('input', apply);
+    })();
+  </script>
+</body>
+</html>

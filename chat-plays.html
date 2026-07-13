@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chat Plays — You Control the Game!</title>
+  <meta name="description" content="How to play Pokémon LeafGreen from Twitch chat on Ray's stream." />
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg-elev: #171a23;
+      --bg-card: #1c2029;
+      --border: #2a2f3a;
+      --text: #e7e9ee;
+      --text-dim: #9aa2b1;
+      --accent: #ffcb3d;
+      --accent-soft: rgba(255, 203, 61, 0.12);
+      --mod: #7bd88f;
+      --mod-soft: rgba(123, 216, 143, 0.12);
+      --warn: #ff8a80;
+      --warn-soft: rgba(255, 138, 128, 0.10);
+      --code-bg: #0b0d12;
+      --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+    }
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg: #f6f7f9;
+        --bg-elev: #ffffff;
+        --bg-card: #ffffff;
+        --border: #e3e6ec;
+        --text: #1b1f27;
+        --text-dim: #5c6472;
+        --accent: #c8930a;
+        --accent-soft: rgba(200, 147, 10, 0.10);
+        --mod: #1f8a4c;
+        --mod-soft: rgba(31, 138, 76, 0.10);
+        --warn: #c62828;
+        --warn-soft: rgba(198, 40, 40, 0.08);
+        --code-bg: #f0f2f5;
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    .wrap { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.25rem 4rem; }
+
+    header { text-align: center; margin-bottom: 2rem; }
+    header .spark { font-size: 2.4rem; line-height: 1; }
+    h1 { margin: 0.4rem 0 0.25rem; font-size: 1.9rem; letter-spacing: -0.01em; }
+    header p { margin: 0; color: var(--text-dim); font-size: 1rem; }
+
+    .backlink { display: inline-block; margin-bottom: 1rem; color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .backlink:hover { text-decoration: underline; }
+
+    .note {
+      display: flex; gap: 0.6rem; align-items: flex-start;
+      font-size: 0.9rem; color: var(--text-dim);
+      margin: 0 0 1.75rem; padding: 0.85rem 1rem;
+      background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px;
+    }
+
+    section { margin-bottom: 2.25rem; }
+    .section-head { display: flex; align-items: baseline; gap: 0.6rem; margin: 0 0 0.9rem; }
+    .section-head h2 { margin: 0; font-size: 1.15rem; }
+    .section-sub { margin: -0.4rem 0 0.9rem; color: var(--text-dim); font-size: 0.88rem; }
+
+    .card {
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.1rem; margin-bottom: 0.7rem;
+      box-shadow: var(--shadow);
+    }
+    .card h3 { margin: 0 0 0.4rem; font-size: 1rem; }
+    .card p { margin: 0.4rem 0 0; font-size: 0.95rem; }
+    .rules .card { border-left: 3px solid var(--mod); }
+    .rules .card.warn { border-left-color: var(--warn); background: linear-gradient(var(--warn-soft), transparent 40%), var(--bg-card); }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.85em; padding: 0.12em 0.4em; border-radius: 5px;
+      background: var(--code-bg); border: 1px solid var(--border);
+    }
+    .big-example {
+      display: block; font-size: 1.05rem; padding: 0.6rem 0.8rem; margin: 0.5rem 0;
+      color: var(--accent);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+    th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--border); }
+    th { color: var(--text-dim); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    td code { font-size: 0.95em; }
+
+    footer {
+      margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
+      text-align: center; color: var(--text-dim); font-size: 0.82rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a class="backlink" href="index.html">← All chat commands</a>
+
+    <header>
+      <div class="spark">🎮</div>
+      <h1>Chat Plays — You Control the Game!</h1>
+      <p>Type commands in Twitch chat and watch Pokémon LeafGreen move on stream. Everyone plays together!</p>
+    </header>
+
+    <div class="note">
+      <span>ℹ️</span>
+      <span>Sometimes Chat Plays is in <strong>test mode</strong> (only a few testers can play) or takes a short break.
+      If your commands don't do anything, that's all it is — nothing's broken, and it'll be back!</span>
+    </div>
+
+    <section>
+      <div class="section-head"><h2>How to play</h2></div>
+      <p class="section-sub">One command does it all: <code>!p</code> followed by the buttons you want to press.</p>
+
+      <div class="card">
+        <h3>Press a button</h3>
+        <code class="big-example">!p a</code>
+        <p>Presses the A button once. That's it — you just played!</p>
+      </div>
+
+      <div class="card">
+        <h3>Hold a button — add a number of seconds</h3>
+        <code class="big-example">!p up 2</code>
+        <p>Holds Up for 2 seconds, so your character walks up. You can hold any button for up to 3 seconds.</p>
+      </div>
+
+      <div class="card">
+        <h3>Chain a few together (up to 5)</h3>
+        <code class="big-example">!p up 2 a b</code>
+        <p>Walks up for 2 seconds, then presses A, then presses B. Each number sticks to the button right before it.</p>
+      </div>
+
+      <div class="card">
+        <h3>The buttons you can use</h3>
+        <table>
+          <tr><th>Type</th><th>What it does in the game</th></tr>
+          <tr><td><code>up</code> <code>down</code> <code>left</code> <code>right</code></td><td>Move around / pick menu options</td></tr>
+          <tr><td><code>a</code></td><td>Confirm / talk / interact</td></tr>
+          <tr><td><code>b</code></td><td>Cancel / back (also run, with running shoes!)</td></tr>
+          <tr><td><code>start</code></td><td>Open the menu</td></tr>
+          <tr><td><code>select</code></td><td>Use a registered item</td></tr>
+          <tr><td><code>l</code> <code>r</code></td><td>The shoulder buttons</td></tr>
+        </table>
+        <p>Anything else simply won't work — the bot only understands these.</p>
+      </div>
+
+      <div class="card">
+        <h3>Good to know</h3>
+        <p>• Wait a few seconds between commands — everyone shares the controller, so there's a short cooldown.</p>
+        <p>• If lots of people are playing, commands line up in a queue and run in order.</p>
+        <p>• Some commands get skipped on purpose when they'd press a button at a bad moment — the bot is keeping the game safe. Just try again!</p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>Points</h2></div>
+      <p class="section-sub">You earn points automatically just by hanging out and chatting during the stream.</p>
+
+      <div class="card">
+        <h3><code>!points</code></h3>
+        <p>Shows how many points you have. More ways to earn and spend them are coming soon — collect now, spend later!</p>
+      </div>
+    </section>
+
+    <section class="rules">
+      <div class="section-head"><h2>The rules</h2></div>
+      <p class="section-sub">Short and simple — this is a game we all share.</p>
+
+      <div class="card">
+        <h3>😊 Be kind and play fair</h3>
+        <p>Chat Plays works because everyone takes turns and works together. Help each other figure out where to go next!</p>
+      </div>
+
+      <div class="card">
+        <h3>🛡️ The bot protects the game</h3>
+        <p>Buttons that aren't on the list won't do anything, and the bot watches the screen and skips commands that would cause problems. You can't break anything by accident, so relax and have fun.</p>
+      </div>
+
+      <div class="card warn">
+        <h3>⚠️ Trying to cause trouble has consequences</h3>
+        <p>Everything sent to the bot is logged, and the mods can see all of it. Deliberately trying to mess up the game, the save, or the stream will get commands ignored — and can mean a timeout or a ban. Don't be that person; it's never worth it.</p>
+      </div>
+    </section>
+
+    <footer>
+      <p>🎮 Have fun out there! &nbsp;·&nbsp; <a href="index.html">All chat commands</a> &nbsp;·&nbsp; Rules and features may change as Chat Plays grows.</p>
+    </footer>
+  </div>
+</body>
+</html>

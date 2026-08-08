@@ -132,14 +132,20 @@
 
       <div class="card">
         <h3>Hold a button — add a number of seconds</h3>
-        <code class="big-example">!p up 2</code>
-        <p>Holds Up for 2 seconds, so your character walks up. You can hold any button for up to 3 seconds.</p>
+        <code class="big-example">!p up 1</code>
+        <p>Holds Up for 1 second, so your character walks up. <strong>1 second is the longest hold</strong> — ask for more and it just holds for 1.</p>
       </div>
 
       <div class="card">
         <h3>Chain a few together (up to 5)</h3>
-        <code class="big-example">!p up 2 a b</code>
-        <p>Walks up for 2 seconds, then presses A, then presses B. Each number sticks to the button right before it.</p>
+        <code class="big-example">!p up 1 a b</code>
+        <p>Walks up for 1 second, then presses A, then B. Each number sticks to the button right before it. The bot re-checks the screen before every single press, so a chain is just as safe as one button.</p>
+      </div>
+
+      <div class="card">
+        <h3>Your whole command gets 2 seconds of holding</h3>
+        <code class="big-example">!p up 1 down 1</code>
+        <p>Add up all the holds in one command and they can't come to more than <strong>2 seconds</strong>. So <code>up 1 down 1</code> is fine, but <code>up 1 down 1 left 1</code> is 3 seconds and gets ignored. Taps barely count — five plain button presses use only half a second, so you'll almost never hit this unless you're holding things.</p>
       </div>
 
       <div class="card">
@@ -154,6 +160,17 @@
           <tr><td><code>l</code> <code>r</code></td><td>The shoulder buttons</td></tr>
         </table>
         <p>Anything else simply won't work — the bot only understands these.</p>
+      </div>
+
+      <div class="card">
+        <h3>The limits, in one place</h3>
+        <table>
+          <tr><th>Limit</th><th>Why</th></tr>
+          <tr><td><strong>5 buttons</strong> per command</td><td>Short commands keep the game moving for everyone, and the bot re-checks the screen between each press.</td></tr>
+          <tr><td><strong>1 second</strong> longest single hold</td><td>Long holds walk you somewhere nobody meant to go.</td></tr>
+          <tr><td><strong>2 seconds</strong> of holding per command, added up</td><td>Lots of medium holds add up to the same runaway as one long one.</td></tr>
+          <tr><td>A short cooldown between your commands</td><td>So one person can't take over the controller.</td></tr>
+        </table>
       </div>
 
       <div class="card">

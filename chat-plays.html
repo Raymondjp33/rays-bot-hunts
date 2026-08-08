@@ -159,8 +159,21 @@
       <div class="card">
         <h3>Good to know</h3>
         <p>• Wait a few seconds between commands — everyone shares the controller, so there's a short cooldown.</p>
-        <p>• If lots of people are playing, commands line up in a queue and run in order.</p>
+        <p>• If lots of people are playing, commands line up in a queue and run in order. One press happens at a time, and the bot takes a fresh look at the screen before every single one.</p>
+        <p>• Your whole command runs before the next person's starts, so nobody's inputs get tangled up with yours.</p>
         <p>• Some commands get skipped on purpose when they'd press a button at a bad moment — the bot is keeping the game safe. Just try again!</p>
+      </div>
+
+      <div class="card">
+        <h3>When a button gets skipped</h3>
+        <p>The bot checks the screen before every press, so what happens depends on where the game is:</p>
+        <table>
+          <tr><th>You'll see</th><th>What it means</th></tr>
+          <tr><td>Just one button ignored</td><td>That button isn't safe on this screen (like <code>a</code> on a "Release this POKéMON?" prompt). Everything else still works — try a different button!</td></tr>
+          <tr><td>Everyone paused for a moment</td><td>The game landed somewhere it shouldn't be. The bot presses its own way out and hands control straight back.</td></tr>
+          <tr><td>Chat Plays stops completely</td><td>Something serious came up. The bot unplugs itself on the spot and waits for a human — it'll be back once the stream runner sorts it out.</td></tr>
+          <tr><td>"MANUAL" on the overlay</td><td>The stream runner has taken the controller for a bit. Commands come back when they hand it over.</td></tr>
+        </table>
       </div>
     </section>
 
@@ -179,13 +192,8 @@
       <p class="section-sub">Short and simple — this is a game we all share.</p>
 
       <div class="card">
-        <h3>😊 Be kind and play fair</h3>
-        <p>Chat Plays works because everyone takes turns and works together. Help each other figure out where to go next!</p>
-      </div>
-
-      <div class="card">
         <h3>🛡️ The bot protects the game</h3>
-        <p>Buttons that aren't on the list won't do anything, and the bot watches the screen and skips commands that would cause problems. You can't break anything by accident, so relax and have fun.</p>
+        <p>Buttons that aren't on the list won't do anything, and the bot looks at the screen before every single press — skipping the ones that would cause problems, and unplugging itself entirely if the game ever ends up somewhere it really shouldn't be. You can't break anything by accident, so relax and have fun.</p>
       </div>
 
       <div class="card warn">

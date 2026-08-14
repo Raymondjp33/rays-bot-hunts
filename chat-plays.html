@@ -122,18 +122,18 @@
 
     <section>
       <div class="section-head"><h2>How to play</h2></div>
-      <p class="section-sub">One command does it all: <code>!p</code> followed by the buttons you want to press.</p>
+      <p class="section-sub">One command does it all: <code>!p</code> followed by the buttons you want to press. No cooldown — spam away.</p>
 
       <div class="card">
         <h3>Press a button</h3>
         <code class="big-example">!p a</code>
-        <p>Presses the A button once. That's it — you just played!</p>
+        <p>Presses the A button once. That's it — you just played! There's no waiting between commands, so send the next one whenever you like.</p>
       </div>
 
       <div class="card">
         <h3>Hold a button — add a number of seconds</h3>
-        <code class="big-example">!p up 1</code>
-        <p>Holds Up for 1 second, so your character walks up. <strong>1 second is the longest hold</strong> — ask for more and it just holds for 1.</p>
+        <code class="big-example">!p up 3</code>
+        <p>Holds Up for 3 seconds, so your character walks up. When nobody else is waiting you can hold for up to <strong>7 seconds</strong> — ask for more and it just holds for 7.</p>
       </div>
 
       <div class="card">
@@ -143,23 +143,37 @@
       </div>
 
       <div class="card">
-        <h3>Your whole command gets 2 seconds of holding</h3>
-        <code class="big-example">!p up 1 down 1</code>
-        <p>Add up all the holds in one command and they can't come to more than <strong>2 seconds</strong>. So <code>up 1 down 1</code> is fine, but <code>up 1 down 1 left 1</code> is 3 seconds and gets ignored. Taps barely count — five plain button presses use only half a second, so you'll almost never hit this unless you're holding things.</p>
+        <h3>Type it however you like</h3>
+        <code class="big-example">!p U D L R</code>
+        <p>Capitals are fine, and every direction has a short form. <code>u</code>, <code>d</code>, <code>l</code>, <code>r</code> are up, down, left and right — so <code>!p l 2 a</code> is the same as <code>!p left 2 a</code>.</p>
       </div>
 
       <div class="card">
         <h3>The buttons you can use</h3>
         <table>
-          <tr><th>Type</th><th>What it does in the game</th></tr>
-          <tr><td><code>up</code> <code>down</code> <code>left</code> <code>right</code></td><td>Move around / pick menu options</td></tr>
-          <tr><td><code>a</code></td><td>Confirm / talk / interact</td></tr>
-          <tr><td><code>b</code></td><td>Cancel / back (also run, with running shoes!)</td></tr>
-          <tr><td><code>start</code></td><td>Open the menu</td></tr>
-          <tr><td><code>select</code></td><td>Use a registered item</td></tr>
-          <tr><td><code>l</code> <code>r</code></td><td>The shoulder buttons</td></tr>
+          <tr><th>Type</th><th>Or any of these</th><th>What it does in the game</th></tr>
+          <tr><td><code>up</code></td><td><code>u</code> <code>^</code></td><td rowspan="4">Move around / pick menu options</td></tr>
+          <tr><td><code>down</code></td><td><code>d</code> <code>dwn</code> <code>v</code></td></tr>
+          <tr><td><code>left</code></td><td><code>l</code> <code>le</code> <code>lft</code> <code>&lt;</code></td></tr>
+          <tr><td><code>right</code></td><td><code>r</code> <code>ri</code> <code>rt</code> <code>rgt</code> <code>&gt;</code></td></tr>
+          <tr><td><code>a</code></td><td>—</td><td>Confirm / talk / interact</td></tr>
+          <tr><td><code>b</code></td><td>—</td><td>Cancel / back (also run, with running shoes!)</td></tr>
+          <tr><td><code>start</code></td><td><code>st</code> <code>+</code> <code>plus</code> <code>menu</code></td><td>Open the menu</td></tr>
+          <tr><td><code>select</code></td><td><code>sel</code> <code>-</code> <code>minus</code></td><td>Use a registered item</td></tr>
         </table>
-        <p>Anything else simply won't work — the bot only understands these.</p>
+        <p>Anything else simply won't work — the bot only understands these. (The L and R shoulder buttons aren't available: <code>l</code> and <code>r</code> mean left and right, which is what everyone types anyway.)</p>
+      </div>
+
+      <div class="card">
+        <h3>Long holds when you're the only one playing</h3>
+        <code class="big-example">!p up 7</code>
+        <p>Holds depend on whether anyone is waiting behind you:</p>
+        <table>
+          <tr><th></th><th>Longest single hold</th><th>Total holding per command</th></tr>
+          <tr><td><strong>Queue empty</strong> — nobody waiting</td><td>7 seconds</td><td>10 seconds</td></tr>
+          <tr><td><strong>Someone's waiting</strong></td><td>2 seconds</td><td>3 seconds</td></tr>
+        </table>
+        <p>So on a quiet stream you can walk right across a route with <code>!p up 7</code>, and when the place is busy everyone gets a quick turn instead of watching one person hold Up. Ask for a longer hold than you're allowed and it just gets shortened.</p>
       </div>
 
       <div class="card">
@@ -167,15 +181,15 @@
         <table>
           <tr><th>Limit</th><th>Why</th></tr>
           <tr><td><strong>5 buttons</strong> per command</td><td>Short commands keep the game moving for everyone, and the bot re-checks the screen between each press.</td></tr>
-          <tr><td><strong>1 second</strong> longest single hold</td><td>Long holds walk you somewhere nobody meant to go.</td></tr>
-          <tr><td><strong>2 seconds</strong> of holding per command, added up</td><td>Lots of medium holds add up to the same runaway as one long one.</td></tr>
-          <tr><td>A short cooldown between your commands</td><td>So one person can't take over the controller.</td></tr>
+          <tr><td><strong>7 seconds</strong> longest hold (2 if others are waiting)</td><td>Long holds are fun when you're alone and a hostage situation when you're not.</td></tr>
+          <tr><td><strong>10 seconds</strong> of holding per command, added up (3 if others are waiting)</td><td>Lots of medium holds add up to the same runaway as one long one.</td></tr>
+          <tr><td><strong>No cooldown at all</strong></td><td>Nothing to wait for — send commands as fast as you can type them.</td></tr>
         </table>
       </div>
 
       <div class="card">
         <h3>Good to know</h3>
-        <p>• Wait a few seconds between commands — everyone shares the controller, so there's a short cooldown.</p>
+        <p>• There's no cooldown, so you can send commands back to back.</p>
         <p>• If lots of people are playing, commands line up in a queue and run in order. One press happens at a time, and the bot takes a fresh look at the screen before every single one.</p>
         <p>• Your whole command runs before the next person's starts, so nobody's inputs get tangled up with yours.</p>
         <p>• Some commands get skipped on purpose when they'd press a button at a bad moment — the bot is keeping the game safe. Just try again!</p>
@@ -191,6 +205,35 @@
           <tr><td>Chat Plays stops completely</td><td>Something serious came up. The bot unplugs itself on the spot and waits for a human — it'll be back once the stream runner sorts it out.</td></tr>
           <tr><td>"MANUAL" on the overlay</td><td>The stream runner has taken the controller for a bit. Commands come back when they hand it over.</td></tr>
         </table>
+      </div>
+    </section>
+
+    <section id="play-mode">
+      <div class="section-head"><h2>Play mode — drop the <code>!p</code></h2></div>
+      <p class="section-sub">Settling in for a proper session? Turn play mode on and just type buttons.</p>
+
+      <div class="card">
+        <h3><code>!enterplaymode</code></h3>
+        <p>From then on, your normal chat messages count as button commands — no <code>!p</code> needed. Type <code>a</code> and it presses A; type <code>up 3</code> and it walks up. Everything else works exactly the same, limits and all.</p>
+        <table>
+          <tr><th>You type</th><th>What happens</th></tr>
+          <tr><td><code>!enterplaymode</code></td><td>Play mode on — the bot confirms in chat</td></tr>
+          <tr><td><code>a</code></td><td>Presses A</td></tr>
+          <tr><td><code>up 3 a</code></td><td>Walks up for 3 seconds, then presses A</td></tr>
+          <tr><td><code>!points</code></td><td>Still just a normal command — play mode doesn't touch it</td></tr>
+        </table>
+      </div>
+
+      <div class="card">
+        <h3>Leaving is as easy as talking</h3>
+        <p>Say two things in a row that aren't buttons — <em>"nice one"</em>, <em>"lol"</em> — and play mode switches itself off, with one message telling you so. That's not a telling-off; it's just how you leave. Nothing gets deleted, nothing counts against you, and <code>!enterplaymode</code> puts you straight back in.</p>
+        <p>You can also type <code>!exitplaymode</code> whenever you want out, and play mode turns itself off after 10 minutes of not playing so it's never on when you've forgotten about it.</p>
+      </div>
+
+      <div class="card">
+        <h3>Two small gotchas</h3>
+        <p>• While you're in play mode, a message that's <em>only</em> button words gets played — so a lone <code>b</code> in chat presses B. That's the whole point, but it surprises people once.</p>
+        <p>• Play mode is per-person. Being in it doesn't stop anyone else playing, and everyone's commands still share the same queue.</p>
       </div>
     </section>
 
